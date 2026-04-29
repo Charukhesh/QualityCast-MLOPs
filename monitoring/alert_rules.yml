@@ -1,0 +1,46 @@
+groups:
+  - name: qualitycast_performance_alerts
+    rules:
+      # 1. ALERT: High Inference Latency
+      # Triggers if the average latency over 1 min exceeds 200ms (0.2 seconds)
+      - alert: HighInferenceLatency
+        expr: rate(inference_latency_seconds_sum[1m]) / rate(inference_latency_seconds_count[1m]) > 0.2
+        for: 30s
+        labels:
+          severity: warning
+        annotations:
+          summary: "Performance Degradation: High Latency"
+          description: "Average inference latency is {{ $value | printf \"%.2f\" }}s, exceeding the 200ms business limit."
+
+      # 2. ALERT: Low Throughput
+      # Triggers if the throughput drops below 5 samples/sec (half of target) while system is active
+      - alert: LowThroughput
+        expr: rate(inference_requests_total[1m]) > 0 and rate(inference_requests_total[1m]) < 5
+        for: 1m
+        labels:
+          severity: warning
+        annotations:
+          summary: "Operational Alert: Low Throughput"
+          description: "Current throughput is {{ $value | printf \"%.2f\" }} samples/sec, falling below assembly line requirements."
+
+  - name: qualitycast_health_alerts
+    rules:
+      # 3. ALERT: Service Down
+      - alert: InferenceServiceDown
+        expr: service_up == 0
+        for: 10s
+        labels:
+          severity: critical
+        annotations:
+          summary: "Critical: Inference API Offline"
+          description: "The FastAPI inference service is unreachable. Immediate investigation required."
+
+      # 4. ALERT: High Defect Rate 
+      - alert: HighDefectRate
+        expr: (def_total / (ok_total + def_total)) * 100 > 20
+        for: 1m
+        labels:
+          severity: critical
+        annotations:
+          summary: "Industrial Alert: High Defect Rate"
+          description: "Casting defect rate is {{ $value }}%, exceeding the 20% quality threshold."

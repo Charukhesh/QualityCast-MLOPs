@@ -1,1 +1,17 @@
 tmp/
+logs/
+plugins/
+config/
+dags/__pycache__
+data/mlruns/
+src/ingestion/__pycache__
+src/training/__pycache__
+mlruns/
+data/
+src/app/__pycache__
+src/tests/__pycache__
+feedback_log.csv
+webserver_config.py
+airflow-webserver.pid
+airflow.cfg
+airflow.db

@@ -1,0 +1,49 @@
+schema: '2.0'
+stages:
+  preprocess:
+    cmd: python src/ingestion/augment.py
+    deps:
+    - path: data/raw
+      hash: md5
+      md5: bb935dc94b37cdca2f1612999bce5cff.dir
+      size: 32402383
+      nfiles: 1300
+    - path: src/ingestion/augment.py
+      hash: md5
+      md5: 737431768d4d9dfcafb7fda744f00cbe
+      size: 1277
+    outs:
+    - path: data/processed
+      hash: md5
+      md5: ebf5c0ec37f85fe83153476e3b15ad8d.dir
+      size: 173090002
+      nfiles: 3900
+  train:
+    cmd: python src/training/train.py
+    deps:
+    - path: data/processed
+      hash: md5
+      md5: ebf5c0ec37f85fe83153476e3b15ad8d.dir
+      size: 173090002
+      nfiles: 3900
+    - path: src/training/train.py
+      hash: md5
+      md5: 8eb8f4a7f547e23cecda014497983a1e
+      size: 6785
+    outs:
+    - path: best_model_weights.pth
+      hash: md5
+      md5: 6c5c04ef3d8dc1663d1a8e15880fa444
+      size: 8919862
+    - path: metrics.json
+      hash: md5
+      md5: 9e63de53998e700cc7f0130f26e386bd
+      size: 259
+    - path: model_architecture.txt
+      hash: md5
+      md5: 2fab90637dbd8d96ca382e62e2741a94
+      size: 355
+    - path: predictions.png
+      hash: md5
+      md5: db3a532e40f5e21009aa939364fbaa83
+      size: 41939

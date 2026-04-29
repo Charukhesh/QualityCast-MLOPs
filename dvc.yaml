@@ -1,0 +1,19 @@
+stages:
+  preprocess:
+    cmd: python src/ingestion/augment.py
+    deps:
+      - data/raw
+      - src/ingestion/augment.py
+    outs:
+      - data/processed
+  train:
+    cmd: python src/training/train.py
+    deps:
+      - data/processed
+      - src/training/train.py
+    outs:
+      - best_model_weights.pth
+      - predictions.png
+      - model_architecture.txt
+    metrics:
+      - metrics.json          
