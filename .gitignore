@@ -15,3 +15,4 @@ webserver_config.py
 airflow-webserver.pid
 airflow.cfg
 airflow.db
+.pytest_cache

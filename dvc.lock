@@ -28,16 +28,16 @@ stages:
       nfiles: 3900
     - path: src/training/train.py
       hash: md5
-      md5: 8eb8f4a7f547e23cecda014497983a1e
-      size: 6785
+      md5: 20d64887a7b9fa8d01235b300bb6ad58
+      size: 6786
     outs:
     - path: best_model_weights.pth
       hash: md5
-      md5: 6c5c04ef3d8dc1663d1a8e15880fa444
+      md5: 3941459bc48f25799e4c0a1512df5512
       size: 8919862
     - path: metrics.json
       hash: md5
-      md5: 9e63de53998e700cc7f0130f26e386bd
+      md5: f89a41c25543e06dca6509b09fdd1e5b
       size: 259
     - path: model_architecture.txt
       hash: md5
@@ -45,5 +45,5 @@ stages:
       size: 355
     - path: predictions.png
       hash: md5
-      md5: db3a532e40f5e21009aa939364fbaa83
-      size: 41939
+      md5: 672b16c49d60698b24b0c4dbdd1a247f
+      size: 42402
